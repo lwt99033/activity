@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>約會扭蛋機 🇭🇰 - 週末甜蜜提案</title>
+    <title>約會扭蛋機 🇭🇰 - 浪漫提案</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -29,20 +29,20 @@
             background: white;
             border-radius: 40px;
             box-shadow: 0 25px 60px rgba(255, 175, 189, 0.3);
-            padding: 2rem;
+            padding: 2.5rem;
             width: 100%;
-            max-width: 480px;
+            max-width: 450px;
             text-align: center;
             border: 4px solid #fff;
             position: relative;
         }
 
         .machine-window {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             background: #fffafa;
             border-radius: 50% 50% 15% 15%;
-            margin: 0 auto 20px;
+            margin: 0 auto 30px;
             position: relative;
             border: 6px solid #ff8a9a;
             overflow: hidden;
@@ -50,79 +50,92 @@
             flex-wrap: wrap;
             justify-content: center;
             align-content: center;
-            padding: 10px;
+            padding: 15px;
             box-shadow: inset 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        .capsule { width: 25px; height: 25px; border-radius: 50%; margin: 4px; box-shadow: 1px 1px 3px rgba(0,0,0,0.1); }
+        .capsule { 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            margin: 6px; 
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1); 
+        }
         .c-1 { background: linear-gradient(#ff7675, #fab1a0); }
         .c-2 { background: linear-gradient(#fdcb6e, #ffeaa7); }
         .c-3 { background: linear-gradient(#81ecec, #00cec9); }
         .c-4 { background: linear-gradient(#a29bfe, #6c5ce7); }
 
         .dial-knob {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: #f1f2f6;
             border-radius: 50%;
-            margin: -45px auto 20px;
+            margin: -50px auto 25px;
             border: 6px solid #ff8a9a;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .knob-line { width: 45px; height: 8px; background: #ff8a9a; border-radius: 4px; }
+        .knob-line { width: 55px; height: 10px; background: #ff8a9a; border-radius: 5px; }
 
         .result-box {
             display: none;
             background: #fff9fa;
             border-radius: 25px;
-            padding: 20px;
+            padding: 25px;
             margin-top: 10px;
             border: 2px solid #ffe5d9;
-            animation: slideUp 0.5s ease-out;
+            animation: slideUp 0.6s ease-out;
         }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .guide-content {
-            text-align: left;
-            margin-top: 15px;
-            padding: 15px;
-            background: white;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #444;
-            border-left: 4px solid #ff7675;
-            max-height: 250px;
-            overflow-y: auto;
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #ff7675 0%, #e63946 100%);
             color: white;
-            padding: 12px 35px;
-            border-radius: 30px;
+            padding: 14px 45px;
+            border-radius: 35px;
             font-weight: bold;
-            box-shadow: 0 8px 15px rgba(230, 57, 70, 0.2);
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.2);
             transition: 0.3s;
         }
 
-        .btn-whatsapp { background: #25d366; color: white; padding: 8px 18px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-whatsapp { 
+            background: #25d366; 
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: 25px; 
+            font-size: 0.9rem; 
+            margin-top: 15px; 
+            font-weight: 600; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.2s;
+        }
+        .btn-whatsapp:active { transform: scale(0.95); }
 
         .shake { animation: shake 0.5s ease-in-out; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @keyframes shake { 
+            0%, 100% { transform: translateX(0); } 
+            25% { transform: translateX(-8px) rotate(-2deg); } 
+            75% { transform: translateX(8px) rotate(2deg); } 
+        }
     </style>
 </head>
 <body>
 
     <div class="gashapon-container">
         <h1 class="title-font text-3xl text-[#e63946] mb-1">約會扭蛋機 🇭🇰</h1>
-        <p class="text-gray-400 text-xs mb-8">為香港情侶精心預備的靈感</p>
+        <p class="text-gray-400 text-xs mb-10">點擊轉盤，解決「今日去邊好」</p>
 
         <div class="machine-window" id="window">
             <div class="capsule c-1"></div><div class="capsule c-2"></div>
@@ -136,19 +149,20 @@
         </div>
 
         <div id="result" class="result-box">
-            <h2 id="act-title" class="text-xl font-bold text-gray-800 mb-1"></h2>
-            <p id="act-desc" class="text-gray-500 text-sm italic mb-2"></p>
+            <div class="text-pink-500 text-xs font-bold uppercase tracking-widest mb-2">🎉 抽中提案</div>
+            <h2 id="act-title" class="text-2xl font-bold text-gray-800 mb-3"></h2>
+            <p id="act-desc" class="text-gray-600 leading-relaxed mb-6"></p>
             
-            <div class="guide-content" id="guide-text"></div>
-
-            <button id="share-btn" onclick="shareToWhatsApp()" class="btn-whatsapp">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                WhatsApp 傳給對方
+            <button onclick="shareToWhatsApp()" class="btn-whatsapp">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                分享俾另一半
             </button>
         </div>
 
-        <div class="mt-8">
-            <button onclick="spin()" class="btn-primary">撳一撳 ‧ 抽約會</button>
+        <div class="mt-12">
+            <button onclick="spin()" class="btn-primary text-lg">
+                撳一撳 ‧ 抽約會
+            </button>
         </div>
     </div>
 
@@ -156,56 +170,21 @@
         let currentItem = null;
 
         const pool = [
-            { 
-                t: "西九海濱草地 Picnic", 
-                d: "遠眺維港日落，最適合慢活一下午。",
-                g: "📍 <strong>行程建議：</strong> 先去圓方採買零食或外賣 Pizza，4點左右去霸位。影完日落可以沿海邊行去 M+ 睇展。<br>💡 <strong>暖男提示：</strong> 草地可能有蚊蟲，記得帶支防蚊水同埋薄外套（海邊夜晚幾大風）。" 
-            },
-            { 
-                t: "深水埗文青尋寶", 
-                d: "在大南街與黑膠碟舖之間感受舊區新魅力。",
-                g: "📍 <strong>行程建議：</strong> 推介去 <i>Common Room</i> 飲杯啡，再去 <i>Vinyl Hero</i> 睇黑膠碟。最後去維記食碗豬潤麵。<br>💡 <strong>暖男提示：</strong> 深水埗路窄人多，記得行路時護住對方，廢事俾人撞親。" 
-            },
-            { 
-                t: "赤柱週末歐陸風情", 
-                d: "行吓美利樓，感受海邊大街的慢生活。",
-                g: "📍 <strong>行程建議：</strong> 行吓美利樓嘅週末市集，再去黃色小屋打卡。夜晚搵間露天餐廳嘆住海風食 Pasta。<br>💡 <strong>暖男提示：</strong> 去赤柱車程較長，預備好一個拍拖專屬 Playlist，喺車度一齊聽。" 
-            },
-            { 
-                t: "中環 PMQ 藝術漫步", 
-                d: "由上環樓梯街行到 PMQ，發掘本地原創設計。",
-                g: "📍 <strong>行程建議：</strong> 上環 <i>Halfway Coffee</i> 飲杯瓷杯咖啡，行去大館睇展，再入 PMQ 搵手作小店。<br>💡 <strong>暖男提示：</strong> 中上環多斜路樓梯，記得提醒對方唔好著太高嘅高踭鞋。" 
-            },
-            { 
-                t: "大澳漁村貓貓遊", 
-                d: "坐小艇、吃大魚蛋，和巷弄裡的貓咪打招呼。",
-                g: "📍 <strong>行程建議：</strong> 坐 20 蚊小艇睇棚屋同尋找白海豚。必食大澳大魚蛋同沙翁。<br>💡 <strong>暖男提示：</strong> 帶定紙巾、濕紙巾，食完街頭小食可以幫對方抹手。" 
-            },
-            { 
-                t: "嘉頓山看萬家燈火", 
-                d: "深水埗後花園，只需15分鐘即可俯覽市區全景。",
-                g: "📍 <strong>行程建議：</strong> 喺美荷樓起步，上山睇日落加夜景。落山後去食深水埗地道宵夜。<br>💡 <strong>暖男提示：</strong> 樓梯多，行嘅時候可以伸出手俾對方扶住，安全感爆棚。" 
-            },
-            { 
-                t: "荃灣南豐紗廠 (The Mills)", 
-                d: "舊廠房改建的文創地標，室內冷氣充足最舒服。",
-                g: "📍 <strong>行程建議：</strong> 紗廠牆身壁畫係必影位。行吓設計小店，再去飲杯 <i>Tap: The Ale Project</i> 嘅手工啤。<br>💡 <strong>暖男提示：</strong> 入面好多寵物，如果對方驚狗記得行近啲保護佢。" 
-            },
-            { 
-                t: "尖沙咀星光大道漫步", 
-                d: "最經典的拍拖路線，看維港幻彩詠香江。",
-                g: "📍 <strong>行程建議：</strong> 先去 K11 Musea 行吓特色建築，8點準時喺海旁睇燈光匯演，再去海港城食甜品。<br>💡 <strong>暖男提示：</strong> 海旁人多，幫對方搵個影相最靚、又唔會俾人阻住嘅位置。" 
-            },
-            { 
-                t: "長洲單車一日遊", 
-                d: "大魚蛋、芒果糯米糍，長洲限定的悠閒感。",
-                g: "📍 <strong>行程建議：</strong> 租架雙人單車環島，去張保仔洞探險（雖然好細），再去東灣沙灘踏浪。<br>💡 <strong>暖男提示：</strong> 記得隨時留意對方會唔會曬親，幫佢遮下太陽或買支凍水。" 
-            },
-            { 
-                t: "坪洲慢活小島遊", 
-                d: "遠離塵囂，這座無車小島最適合靜靜談心。",
-                g: "📍 <strong>行程建議：</strong> 參觀牛皮廠藝術花園（超美打卡位），行上手指山睇青馬大橋全景。<br>💡 <strong>暖男提示：</strong> 坪洲餐廳收得早，回程前記得check定船期，廢事要等好耐。" 
-            }
+            { t: "西九海濱草地 Picnic", d: "帶埋野餐墊去睇維港日落，吹住海風聽歌，享受慢活下午。" },
+            { t: "深水埗文青半日遊", d: "大南街行吓黑膠碟舖、歎杯精品咖啡，感受老區新活力。" },
+            { t: "赤柱週末歐陸風情", d: "行吓美利樓市集，喺海邊大街食餐露天晚餐，假裝喺外國度假。" },
+            { t: "中環 PMQ 尋寶", d: "行吓本地設計師小店，再去上環樓梯街影返幾張文青相。" },
+            { t: "大澳漁村貓島遊", d: "坐 20 蚊小艇睇棚屋，食大魚蛋同沙翁，尋找巷仔入面嘅貓貓。" },
+            { t: "嘉頓山睇夜景", d: "15 分鐘輕鬆上山，望住全個深水埗萬家燈火，落山再食宵夜。" },
+            { t: "荃灣南豐紗廠 (The Mills)", d: "室內冷氣充足，壁畫打卡位超多，仲有好多精緻嘅本地手作店。" },
+            { t: "山頂盧吉道漫步", d: "全香港最美嘅步行徑，無斜路好易行，可以飽覽全個維港夜色。" },
+            { t: "長洲單車一日遊", d: "食大魚蛋、芒果糯米糍，租架單車環島，去東灣沙灘踏浪。" },
+            { t: "坪洲慢活生活", d: "座落無車嘅安靜小島，行吓牛皮廠藝術區，感受最純粹嘅寧靜。" },
+            { t: "將軍澳南海濱踩單車", d: "踩過跨灣大橋，夜晚喺海邊長廊搵間 Bar 飲杯微醺啤酒。" },
+            { t: "大埔大美督放風箏", d: "喺主壩踩單車、睇海，再去附近食個燒烤或者泰國菜。" },
+            { t: "銅鑼灣唱 K 大賽", d: "搵間 K 房嗌番幾粒鐘，淨係為對方唱嗰首情歌。" },
+            { t: "元朗下白泥落日", d: "全港最靚落日泥灘，影情侶相嘅首選地點，浪漫到極致。" },
+            { t: "尖沙咀星光大道漫步", d: "最經典嘅拍拖路線，睇完幻彩詠香江再去 K11 Musea 睇藝術品。" }
         ];
 
         function spin() {
@@ -222,23 +201,23 @@
             setTimeout(() => {
                 win.classList.remove('shake');
                 currentItem = pool[Math.floor(Math.random() * pool.length)];
-                document.getElementById('act-title').innerText = "✨ " + currentItem.t;
+                document.getElementById('act-title').innerText = currentItem.t;
                 document.getElementById('act-desc').innerText = currentItem.d;
-                document.getElementById('guide-text').innerHTML = currentItem.g;
                 res.style.display = 'block';
                 popHearts();
             }, 600);
         }
 
         function popHearts() {
-            for(let i=0; i<6; i++) {
+            for(let i=0; i<8; i++) {
                 const h = document.createElement('div');
                 h.innerHTML = '❤️';
                 h.style.position = 'fixed';
                 h.style.left = Math.random() * 80 + 10 + 'vw';
                 h.style.top = '80%';
-                h.style.fontSize = '24px';
+                h.style.fontSize = Math.random() * 20 + 15 + 'px';
                 h.style.pointerEvents = 'none';
+                h.style.zIndex = '100';
                 document.body.appendChild(h);
                 
                 let y = 80;
@@ -248,15 +227,14 @@
                     opacity -= 0.02;
                     h.style.top = y + '%';
                     h.style.opacity = opacity;
-                    h.style.transform = `translateX(${Math.sin(y/10)*15}px)`;
+                    h.style.transform = `translateX(${Math.sin(y/10)*20}px)`;
                     if(opacity <= 0) { clearInterval(anim); h.remove(); }
                 }, 20);
             }
         }
 
         function shareToWhatsApp() {
-            const cleanText = document.getElementById('guide-text').innerText;
-            const message = `親愛的，呢個週末不如去呢度拍拖？💖\n\n📍 活動：${currentItem.t}\n📝 內容：${currentItem.d}\n\n💡 暖男攻略：\n${cleanText}\n\n（睇更多約會提案：[你的GitHub連結]）`;
+            const message = `親愛的，呢個週末不如去呢度拍拖？💖\n\n📍 提案：${currentItem.t}\n📝 內容：${currentItem.d}\n\n（抽多幾個請開：[你的 GitHub 連結]）`;
             const encoded = encodeURIComponent(message);
             window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
         }
