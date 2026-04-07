@@ -117,6 +117,16 @@
 
         .shake { animation: shake 0.5s ease-in-out; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        
+        .loading-dots:after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+        }
     </style>
 </head>
 <body>
@@ -173,28 +183,48 @@
         ];
 
         async function fetchAI(prompt) {
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: "你是一位香港地道的約會專家。請針對抽出的活動，為香港情侶提供簡短、地道、浪漫的約會建議。包括具體店名和一個貼心小提示。" }] }
-                    })
-                });
-                const data = await response.json();
-                return data.candidates[0].content.parts[0].text;
-            } catch (err) { return "AI 休息中，一陣再試！"; }
+            let retries = 0;
+            const maxRetries = 5;
+            
+            while (retries < maxRetries) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            systemInstruction: { parts: [{ text: "你是一位香港地道的約會專家。請針對抽出的活動，為香港情侶提供簡短、地道、浪漫的約會建議。包括具體店名和一個貼心小提示。語氣要親切地道，使用香港粵語風格。" }] }
+                        })
+                    });
+                    
+                    if (!response.ok) throw new Error('API request failed');
+                    
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) return text;
+                    throw new Error('Empty response');
+                    
+                } catch (err) {
+                    retries++;
+                    const delay = Math.pow(2, retries) * 1000; // 1s, 2s, 4s, 8s, 16s
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    if (retries === maxRetries) return "AI 暫時感冒咗，請檢查網絡或者一陣再試下！";
+                }
+            }
         }
 
         function spin() {
             const win = document.getElementById('window');
             const res = document.getElementById('result');
             const shareBtn = document.getElementById('share-btn');
+            const aiBtn = document.getElementById('ai-btn');
             
             win.classList.add('shake');
             res.style.display = 'none';
             shareBtn.style.display = 'none';
+            aiBtn.innerText = "🪄 AI 香港攻略";
+            aiBtn.disabled = false;
+            aiBtn.classList.remove('loading-dots');
             document.getElementById('ai-response').classList.add('hidden');
 
             setTimeout(() => {
@@ -203,6 +233,7 @@
                 document.getElementById('act-title').innerText = currentItem.t;
                 document.getElementById('act-desc').innerText = currentItem.d;
                 res.style.display = 'block';
+                popHearts();
             }, 600);
         }
 
@@ -212,19 +243,46 @@
             const resp = document.getElementById('ai-response');
             const shareBtn = document.getElementById('share-btn');
             
-            btn.innerText = "諗緊攻略...";
+            btn.innerText = "諗緊攻略中";
+            btn.classList.add('loading-dots');
             btn.disabled = true;
 
-            aiPlanRaw = await fetchAI(`我地抽到去「${currentItem.t}」，請幫我地呢對香港情侶規劃一個超浪漫行程！`);
+            aiPlanRaw = await fetchAI(`我地抽到去「${currentItem.t}」，內容係「${currentItem.d}」。請幫我地呢對香港情侶規劃一個超浪漫嘅行程！`);
             
             text.innerHTML = aiPlanRaw.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             resp.classList.remove('hidden');
             btn.innerText = "🪄 攻略已生成";
+            btn.classList.remove('loading-dots');
             shareBtn.style.display = 'inline-block';
         }
 
+        function popHearts() {
+            for(let i=0; i<6; i++) {
+                const h = document.createElement('div');
+                h.innerHTML = '❤️';
+                h.style.position = 'fixed';
+                h.style.left = Math.random() * 80 + 10 + 'vw';
+                h.style.top = '80%';
+                h.style.fontSize = '24px';
+                h.style.zIndex = '99';
+                h.style.pointerEvents = 'none';
+                document.body.appendChild(h);
+                
+                let y = 80;
+                let opacity = 1;
+                const anim = setInterval(() => {
+                    y -= 1.5;
+                    opacity -= 0.02;
+                    h.style.top = y + '%';
+                    h.style.opacity = opacity;
+                    h.style.transform = `translateX(${Math.sin(y/10)*10}px)`;
+                    if(opacity <= 0) { clearInterval(anim); h.remove(); }
+                }, 20);
+            }
+        }
+
         function shareToWhatsApp() {
-            const message = `親愛的，呢個週末不如去呢度拍拖？💖\n\n📍 活動：${currentItem.t}\n📝 簡介：${currentItem.d}\n\n✨ AI 浪漫攻略建議：\n${aiPlanRaw.substring(0, 150)}...\n\n（睇埋完整攻略，快啲開扭蛋機 App 啦！）`;
+            const message = `親愛的，呢個週末不如去呢度拍拖？💖\n\n📍 活動：${currentItem.t}\n📝 簡介：${currentItem.d}\n\n✨ AI 浪漫攻略建議：\n${aiPlanRaw.substring(0, 150)}...\n\n（快啲開扭蛋機睇完整攻略啦！）`;
             const encoded = encodeURIComponent(message);
             window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
         }
